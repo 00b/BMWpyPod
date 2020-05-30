@@ -1,0 +1,5 @@
+
+cp carpi.service /lib/systemd/system/
+systemctl daemon-reload
+systemctl enable carpi.service
+

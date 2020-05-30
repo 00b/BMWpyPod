@@ -1,0 +1,12 @@
+[Unit]
+Description=Fake Ipod Bluetooth Adapter Thing
+After=multi-user.target
+
+[Service]
+#Type=forking
+#ExecStart=/root/screen128pi.sh
+Type=simple
+ExecStart=/root/128pypod.py
+
+[Install]
+WantedBy=multi-user.target
