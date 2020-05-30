@@ -7,8 +7,11 @@ Factory BMW Y-Cable plugs into a 30-pin dock connector break out board attached 
 Have tested with Pi Zero W and Pi 3 B+
 
 Many features are not implemented/accessible via the stereo such as:
+
 Browse playlists, albums, artists, genres via the stereo. 
+
 Random
+
 Repeat
 
 Script expects bluetooth to connection before it will start communicating with the car. 
