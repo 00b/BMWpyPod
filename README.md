@@ -6,7 +6,7 @@ Factory BMW Y-Cable plugs into a 30-pin dock connector break out board attached 
 
 Have tested with Pi Zero W and Pi 3 B+
 
-Many features are not implemented or otherwise accessible via the stereo such as:
+Many features are not implemented/accessible via the stereo such as:
 * Browse playlists, albums, artists, genres via the stereo. 
 * Random
 * Repeat
@@ -33,3 +33,4 @@ Other known issues with the code:
 Other things to note:
 * Car must be ingition on for the power near the USB port to be engergized. 
 * Bluetooth needs to be paird each time if useing the script above to configure the pi as an audio receiver. This should be solveable with config tweaks.
+* Bluetooth must be connected before car will think an ipod is attached. (thought it bears repeating)
