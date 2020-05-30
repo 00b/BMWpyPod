@@ -645,87 +645,27 @@ def parsedata(parsethis):
         #sersend(cmdr([0x04],resptype + length + timecode + status))
         #sersend(cmdr([0x04],resptype + tracklengthbytes + playposbytes + PlayStatus))
         sersend(cmdr([0x04],resptype + list(avrcp.TrackDuration().to_bytes(4, byteorder='big',signed='True')) + list(avrcp.TrackPosition().to_bytes(4, byteorder='big',signed='True')) + PlayStatus))
-
-
-    #elif parsethis.startswith(GetIndexedPlayingTrackAlbumName):
-    #    print('GetIndexedPlayingTrackAlbumName')
-    #    resptype=[0x00,0x25]
-    #    terminator=[0x00]
-        #place holder album until we have avcrp. 
-        #album='Always Outnumbered, Never Outgunned'
-    #    album=avrcp.Album()
-    #    album=list(album.encode())
-    #    sersend(cmdr([0x04],resptype + album + terminator))
-     
-    #elif parsethis.startswith(songreq):
-    #    print('Song Name')
-    #    resptype=[0x00,0x21]
-    #    terminator=[0x00]
-    #    #placeholder song until we have avcrp
-    #    song='Shoot Down'
-    #    song=list(song.encode())
-    #    sersend(cmdr([0x04],resptype + song + terminator))
-    #
-    #elif parsethis.startswith(artistreq):
-    #    print('Song Artist')
-    #    resptype=[0x00,0x23]
-    #    terminator=[0x00]
-        #placeholder artist until we have avcrp
-        #artist='The Prodigy'
-    #    artist=avrcp.Artist()
-    #    artist=list(artist.encode())
-    #    sersend(cmdr([0x04],resptype + artist + terminator))
-    else:
+        
+   else:
         TextColor='\033[91m'
         ResetText='\033[0m'
         print(TextColor + 'Unknown: ' + str(parsethis) +' '+ parsethis.hex()  +ResetText)
 
-#def PlayStatusChangeNotification():
-    #
-    #indexpos=
-    #sersend(cmdr([0x04],[0x00,0x27]+
-
 #get info form player. 
 currplay=avrcp.PlayingInfo()
-#playing=True
-#avrcp.Play()
-#playing=True
-#playing=IsPlaying
-#polling=True
-#start_time=round(time.monotonic() * 1000)
-while True:
-    #Get TrackPosition from BT device, returns miliseconds. 
-    #elapsed = avrcp.TrackPosition()
-    #Break the TrackPosition into 4 bytes to send. 
-    #elapsedbytes=[(elapsed >> 24) & 0xff,(elapsed >> 16) & 0xff, (elapsed >> 8) & 0xff, elapsed & 0xff]
-    #time.sleep(.002)    
-    #if elapsed != avrcp.TrackPosition():
-    #    playing=True
-    #    print('Playing')
-    #else:
-    #    playing=False
-    #    print('Not Playing') 
 
+while True:
     if polling and IsPlaying():
-        #elapsed = round(time.monotonic() * 1000 - start_time)
-        #if elapsed > 5: #doesn't matter much because we are limited by the serial timeout value anyways. 
-            #sersend(cmdr([0x04],[0x00,0x27] + elapsedbytes))
-            #Send Playback track position 0x04 New track position in milliseconds (32 bits)
-        print('PlayStatusChangeNotification Enabled (polling) and player playing sending position:')
         #Send track playback postion in miliseconds. 
-        #sersend(cmdr([0x04],[0x00,0x27,0x04] + elapsedbytes))
+        print('PlayStatusChangeNotification Enabled (polling) and player playing sending position:')
         sersend(cmdr([0x04],[0x00,0x27,0x04] + list(avrcp.TrackPosition().to_bytes(4, byteorder='big',signed='True'))))
-           #sersend(cmdr([0x04],[0x00,0x27] + list(elapsed.to_bytes(4, byteorder='big',signed='true'))))
-            #print('polling enabled sending :' + str(elapsed.to_bytes(4, byteorder='big',signed='true'))) 
     if polling and currplay != avrcp.PlayingInfo():
         print('PlayStatusChangeNotification Enabled (polling) sending track changed')
         indexpos = indexpos + 1
         if indexpos > 2:
             indexpos = 0
-        #start_time=round(time.monotonic() * 1000)
         #Send Playback track changed 0x01 New track record index (32 bits)
-        #in the indexposh value shouldn't ever be more than 3 but if it is it should be fine.
-        #sersend(cmdr([0x04],[0x00,0x27,0x01,(indexpos >> 24) & 0xff,(indexpos >> 16) & 0xff,(indexpos >> 8) & 0xff,indexpos & 0xff]))
+        #in the indexposh value shouldn't ever be more than 2 but if it is it should be fine.
         sersend(cmdr([0x04],[0x00,0x27,0x01] + list(indexpos.to_bytes(4, byteorder='big',signed='True'))))
         currplay=avrcp.PlayingInfo()
     
