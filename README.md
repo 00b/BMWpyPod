@@ -1,4 +1,3 @@
-i# BluetoothPiPodForBMW6FL
 
 Allows audio playback from Android devices with bluetooth (AVRCP & A2DP) via Raspberry Pi and shows current playing track information and maintaining control from stereo and wheel for next and previous tracks. Should work on BMWs with the 6FL (USB ipod interface) option without idrive/nav. May work on Mini's with same Y-Cable setup.  
 
